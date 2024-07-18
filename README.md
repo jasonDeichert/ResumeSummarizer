@@ -2,6 +2,9 @@
 
 Open source resume summarizer using OpenAI API
 
+You will need your own OpenAI API Key.
+Set the environment variable "OPENAI_API_KEY" to your open API key.
+
 First few goals:
 
 1. Parse .docx and pdf files to extract text content
