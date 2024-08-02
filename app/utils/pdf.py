@@ -3,6 +3,9 @@ from pydantic import BaseModel
 from model.db.resume import ResumeEducation, ResumeExperience, Resume
 from model.db.pdf import Text_Section_and_Style
 
+#we need to add some server side validation of pdfs before we parse them
+#we should also add some error handling for when the pdf is not in the correct format
+
 class Parse_PDF:
     def __init__(self, pdf_file: str):
         self.pdf_file: str = pdf_file
