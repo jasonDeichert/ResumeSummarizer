@@ -1,6 +1,5 @@
-from pydantic import BaseModel, Field, ValidationError, RootModel
-from typing import List, Tuple, Union, Optional, Dict
-
+from pydantic import BaseModel
+from typing import List
 class Text_Section_and_Style(BaseModel):
     text: str
     size: float
