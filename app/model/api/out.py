@@ -6,14 +6,14 @@ class StandardizeResumeOutEducation(BaseModel):
     major: str
     school: str
     start: str
-    end: str
+    end: Optional[str] = None
 
 class StandardizeResumeOutExperience(BaseModel):
     title: str
     company: str
     start: str
-    end: Optional[str]
-    description: str
+    end: Optional[str] = None
+    description: Optional[str] = None
 
 
 class StandardizeResumeOut(BaseModel):
