@@ -1,38 +1,26 @@
 import React from 'react';
 
-interface StandardizeResumeOutEducation {
-    degree: string;
-    major: string;
-    school: string;
-    start: string;
-    end: string;
-}
-
-interface StandardizeResumeOutExperience {
-    title: string;
-    company: string;
-    start: string;
-    end: string | undefined;
-    description: string;
-}
-
-interface StandardizeResumeOut {
-    summary?: string;
-    education?: StandardizeResumeOutEducation[];
-    experience?: StandardizeResumeOutExperience[];
-    skills?: string[];
-    certifications?: string[];
-    languages?: string[];
-    publications?: string[];
-}
-
-interface ResumeEditProps {
+import {StandardizeResumeOut} from '../../types/resume';
+interface Props {
     resume: StandardizeResumeOut;
 }
 
-const ResumeEdit: React.FC<ResumeEditProps> = ({ resume }) => {
+const ResumeEdit: React.FC<Props> = ({ resume }) => {
     return (
         <div className="space-y-8">
+            <h2 className="text-2xl font-bold mb-4">Summary</h2>
+            <p className="text-gray-600">{resume.summary}</p>
+
+            <h2 className="text-2xl font-bold mb-4">Education</h2>
+            {resume.education?.map((education, index) => (
+                <div key={index} className="mb-4 p-4 border border-gray-200 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-semibold">{education.degree}</h3>
+                    <p className="text-gray-600">{education.major}</p>
+                    <p className="text-gray-700">{education.school}</p>
+                    <p className="text-gray-500">{education.start} - {education.end ?? null}</p>
+                </div>
+            ))}
+
             <h2 className="text-2xl font-bold mb-4">Experience</h2>
             {resume.experience?.map((experience, index) => (
                 <div key={index} className="mb-4 p-4 border border-gray-200 rounded-lg shadow-sm">
