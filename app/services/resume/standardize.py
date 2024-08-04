@@ -4,21 +4,14 @@ import json
 import base64
 from model.db.resume import Resume
 from model.db.pdf import Text_Section_and_Style
+from services.client import Client
 from datetime import datetime
 from typing import List
 
-client = AsyncOpenAI(
-  http_client=httpx.AsyncClient(
-    limits=httpx.Limits(
-      max_connections=1000,
-      max_keepalive_connections=100
-    )
-  )
-)
 
 max_prompt_length = 50
 
-async def standardize_resume(resume_content: list[Text_Section_and_Style])-> Resume:
+async def standardize_resume(resume_content: list[Text_Section_and_Style], client: Client)-> Resume:
   system_content =f'''You are an AI model that standardizes resumes.
   You will receive a list of objects with the following schema: {{"text_section": str, "size": float, "font": font-type, "color": color}}
   Your job is to group the content into its logical categories.
