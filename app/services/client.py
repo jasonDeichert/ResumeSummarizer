@@ -1,8 +1,9 @@
 from openai import AsyncOpenAI
 import httpx
+from functools import lru_cache
 
 class Client:
-  def __init__(self):
+  def __init__(self) -> None:
     self.client = AsyncOpenAI(
       http_client=httpx.AsyncClient(
         limits=httpx.Limits(
@@ -11,3 +12,8 @@ class Client:
         )
       )
     )
+    print("Client created")
+  @classmethod
+  @lru_cache
+  def get_client(cls) -> 'Client':
+    return cls()
