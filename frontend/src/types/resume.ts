@@ -1,29 +1,26 @@
+
 interface StandardizeResumeOutEducation {
-    degree: string;
-    major: string;
-    school: string;
-    start: string;
-    end: string;
+    degree: string | null;
+    major: string | null;
+    school: string | null;
+    start: string | null;
+    end: string | null;
 }
 
 interface StandardizeResumeOutExperience {
-    title: string;
-    company: string;
-    start: string;
-    end: string | undefined;
-    description: string;
+    title?: string | null;
+    company?: string | null;
+    start: string | null;
+    end: string | null;
+    description: string | null;
 }
 
-interface StandardizeResumeOut {
-    summary?: string;
-    education?: StandardizeResumeOutEducation[];
-    experience?: StandardizeResumeOutExperience[];
-    skills?: string[];
-    certifications?: string[];
-    languages?: string[];
-    publications?: string[];
-}
-
-export interface ResumeEditProps {
-    resume: StandardizeResumeOut;
+export interface StandardizeResumeOut {
+    summary?: string | null;
+    education?: StandardizeResumeOutEducation[] | null;
+    experience?: StandardizeResumeOutExperience[] | null;
+    skills?: string[] | null;
+    certifications?: string[] | null;
+    languages?: string[] | null;
+    publications?: string[] | null;
 }
