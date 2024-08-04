@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, ValidationError, RootModel
-from typing import List, Tuple, Union, Optional, Dict
+from pydantic import BaseModel
+from typing import List, Optional
 
 class StandardizeResumeOutEducation(BaseModel):
     degree: str
@@ -17,10 +17,10 @@ class StandardizeResumeOutExperience(BaseModel):
 
 
 class StandardizeResumeOut(BaseModel):
-    summary: Optional[str]
-    education: Optional[List[StandardizeResumeOutEducation]]
-    experience: Optional[List[StandardizeResumeOutExperience]]
-    skills: Optional[List[str]]
-    certifications: Optional[List[str]]
-    languages: Optional[List[str]]
-    publications: Optional[List[str]]
+    summary: Optional[str] = None
+    education: Optional[List[StandardizeResumeOutEducation]] = None
+    experience: Optional[List[StandardizeResumeOutExperience]] = None
+    skills: Optional[List[str]] = None
+    certifications: Optional[List[str]] = None
+    languages: Optional[List[str]] = None
+    publications: Optional[List[str]] = None
