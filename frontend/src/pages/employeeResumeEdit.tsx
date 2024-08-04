@@ -2,9 +2,10 @@
 import React from 'react';
 import PdfUploadForm from '../components/employeeResumeEdit/pdfUploadForm';
 import ResumeEdit from '../components/employeeResumeEdit/resumeEdit';
+import {StandardizeResumeOut} from '../types/resume';
 
 const EmployeeResumeEdit: React.FC = () => {
-    const mockResume = {
+    const mockResume: StandardizeResumeOut = {
         summary: "Experienced software developer with a passion for creating innovative solutions.",
         education: [
             {
@@ -27,7 +28,7 @@ const EmployeeResumeEdit: React.FC = () => {
                 title: "Senior Software Developer",
                 company: "Another Tech Company",
                 start: "2021-09-01",
-                end: undefined,
+                end: null,
                 description: "Leading a team of developers to build scalable software solutions."
             }
         ],
@@ -36,10 +37,14 @@ const EmployeeResumeEdit: React.FC = () => {
         languages: ["English", "Spanish"],
         publications: ["How to Build Scalable Web Applications"]
     };
+    const [isResumeFileUploaded, setIsResumeFileUploaded] = React.useState<boolean>(false);
+    const [resume, setResume] = React.useState<StandardizeResumeOut>(mockResume);
+    
+    
     return (
         <div>
-            <PdfUploadForm />
-            <ResumeEdit resume={mockResume}/>
+            <PdfUploadForm setIsResumeFileUploaded={setIsResumeFileUploaded} setResume={setResume} />
+            <ResumeEdit resume={resume}/>
         </div>
     );
 };
