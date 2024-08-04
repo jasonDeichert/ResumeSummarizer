@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
+import {StandardizeResumeOut} from '../../types/resume';
 
-const PdfUploadForm = () => {
+interface PdfUploadFormProps {
+    setIsResumeFileUploaded: Dispatch<SetStateAction<boolean>>;
+    setResume: Dispatch<SetStateAction<StandardizeResumeOut>>;
+}
+
+const PdfUploadForm: React.FC<PdfUploadFormProps> = ({setIsResumeFileUploaded, setResume}) => {
     const [file, setFile] = useState<File | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -8,14 +14,31 @@ const PdfUploadForm = () => {
         setFile(selectedFile);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // Handle file upload logic here
         if (file) {
-            const fileSize = file.size;
-            console.log("File size:", fileSize);
-            // Upload the file
-            console.log("Uploading file:", file);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const response = await fetch("http://localhost:8000/standardizeresume", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("API response:", data);
+                    // Update the resume state with the response data
+                    setIsResumeFileUploaded(true);
+                    setResume(data);
+                } else {
+                    console.log("API request failed");
+                }
+            } catch (error) {
+                console.log("API request error:", error);
+            }
         } else {
             console.log("No file selected");
         }
