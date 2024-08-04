@@ -1,5 +1,4 @@
-from pydantic import BaseModel, Field, ValidationError, RootModel
-from typing import List, Tuple, Union, Optional, Dict
+from pydantic import BaseModel
 
 class SummarizeResumeIn(BaseModel):
     resume: str
