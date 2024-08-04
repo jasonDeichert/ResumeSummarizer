@@ -59,12 +59,14 @@ const PdfUploadForm: React.FC<PdfUploadFormProps> = ({setIsResumeFileUploaded, s
                     className="border border-gray-300 rounded-md p-2"
                 />
             </div>
-            <button
-                type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-            >
-                Upload
-            </button>
+            <div className="flex justify-center">
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                >
+                    Upload
+                </button>
+            </div>
         </form>
     );
 };

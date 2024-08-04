@@ -43,8 +43,13 @@ const EmployeeResumeEdit: React.FC = () => {
     
     return (
         <div>
-            <PdfUploadForm setIsResumeFileUploaded={setIsResumeFileUploaded} setResume={setResume} />
-            <ResumeEdit resume={resume}/>
+            <div className="bg-white shadow-md rounded-md p-4 mb-4">
+                <PdfUploadForm setIsResumeFileUploaded={setIsResumeFileUploaded} setResume={setResume} />
+            </div>
+            
+            <div className="bg-white shadow-md rounded-md p-4">
+                <ResumeEdit resume={resume}/>
+            </div>
         </div>
     );
 };
