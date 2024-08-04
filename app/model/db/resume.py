@@ -1,6 +1,6 @@
 #No actual db for now but it makes sense to have an internal model for the resume which can mimic a potential db schema
-from pydantic import BaseModel, Field, ValidationError, RootModel
-from typing import List, Tuple, Union, Optional, Dict
+from pydantic import BaseModel
+from typing import List, Optional
 
 class ResumeEducation(BaseModel):
     degree: Optional[str]
