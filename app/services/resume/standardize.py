@@ -1,20 +1,19 @@
 import json
-from typing import LiteralString
 from openai.types.chat.chat_completion import ChatCompletion
 from app.model.api.out import StandardizeResumeOut
 from app.model.db.pdf import Text_Section_and_Style
+from app.utils.describe_class import describe_class
 from app.services.client import Client
 
 async def standardize_resume(resume_content: list[Text_Section_and_Style], client: Client) -> StandardizeResumeOut:
-    system_content: LiteralString = f'''You are an AI model that standardizes resumes.
-    You will receive a list of objects with the following schema: {{"text_section": str, "size": float, "font": font-type, "color": color}}.
-    Your job is to group the content into its logical categories.
-    Use only the following categories: summary, education, experience, skills, certifications, languages, publications.
-    The Education category should be a list of schema: {{"degree": str, "major": str, "school": str, "start": str, "end": str}}. All of these keys are optional if the resume does not include them.
-    The Experience category should be list of schema: {{"title": str, "company": str, "start": str, "end": str, "description": str}}. All of these keys are optional if the resume does not include them.
-    The Skills, Certifications, Languages, and Publications categories should be lists of strings.
-    Return a JSON object with the categories as keys and the appropriate text content combined into one string (with the exception of experience and education) as the value. Don't include categories that do not appear in the resume.
-    If you must use a different category, please provide a justification for doing so as a final key in the resume JSON object.'''
+    system_content: str = f'''You standardize resumes.
+    You will receive a list of objects with the following schema:
+    {describe_class(Text_Section_and_Style)}
+    Your job is to group the text content into its logical categories.
+    Return a JSON object with this schema:
+    {describe_class(StandardizeResumeOut)}
+    Format dates as MM/YYYY.
+    Try to organize the text content nicely. For instance, if someone breaks up a description into bullet points, add new line characters as appropriate.'''
     
     user_content: str = f'''Standardize this resume: {resume_content}.'''
     
