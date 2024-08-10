@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Python: Uvicorn",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
             "args": [
@@ -20,6 +20,14 @@
                 "debug"
             ],
             "jinja": true
-          }
+          },
+          {
+            "name": "Run app/test.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/app/test.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/app"
+        }
     ]
 }
