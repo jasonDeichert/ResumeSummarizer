@@ -15,7 +15,6 @@ class StandardizeResumeOutExperience(BaseModel):
     end: Optional[str] = None
     description: Optional[str] = None
 
-
 class StandardizeResumeOut(BaseModel):
     summary: Optional[str] = None
     education: Optional[List[StandardizeResumeOutEducation]] = None
@@ -24,3 +23,8 @@ class StandardizeResumeOut(BaseModel):
     certifications: Optional[List[str]] = None
     languages: Optional[List[str]] = None
     publications: Optional[List[str]] = None
+
+class SummarizeResumeOut(BaseModel):
+    quick_summary: str
+    general_employability: int
+    
