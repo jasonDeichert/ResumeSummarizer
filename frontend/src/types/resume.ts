@@ -24,3 +24,9 @@ export interface StandardizeResumeOut {
     languages?: string[] | null;
     publications?: string[] | null;
 }
+
+
+export interface SummarizeResumeOut {
+    quick_summary: string | null;
+    general_employability: number | null;
+}
