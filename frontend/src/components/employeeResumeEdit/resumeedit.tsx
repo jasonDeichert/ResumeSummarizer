@@ -8,7 +8,7 @@ interface Props {
 const ResumeEdit: React.FC<Props> = ({ resume }) => {
     return (
         <div className="space-y-8">
-            <h2 className="text-2xl font-bold mb-4">Summary</h2>
+            <h2 className="text-2xl font-bold mb-4">Profile</h2>
             <p className="text-gray-600">{resume.summary}</p>
 
             <h2 className="text-2xl font-bold mb-4">Education</h2>
