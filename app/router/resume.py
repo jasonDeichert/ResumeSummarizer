@@ -13,6 +13,6 @@ async def standardize_resume(file: UploadFile = File(...), client: Client = Depe
     return await resume_controller.standardize_resume(file, client)
 
 @router.post("/summarizeresume", response_model=SummarizeResumeOut)
-async def summarize_resumse(resume: StandardizeResumeOut, client: Client = Depends(Client.get_client)) -> SummarizeResumeOut:
+async def summarize_resume(resume: StandardizeResumeOut, client: Client = Depends(Client.get_client)) -> SummarizeResumeOut:
     print(f"Received request to summarize a resume: {datetime.now()}")
     return await resume_controller.summarize_resume(resume, client)
