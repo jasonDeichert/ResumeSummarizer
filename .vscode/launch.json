@@ -22,12 +22,20 @@
             "jinja": true
           },
           {
-            "name": "Run app/test.py",
+            "name": "Run test.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/app/test.py",
+            "program": "${workspaceFolder}/test.py",
             "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/app"
-        }
+            "cwd": "${workspaceFolder}"
+        },
+        {
+          "name": "Run testgen.py",
+          "type": "debugpy",
+          "request": "launch",
+          "program": "${workspaceFolder}/testgen.py",
+          "console": "integratedTerminal",
+          "cwd": "${workspaceFolder}"
+      }
     ]
 }
