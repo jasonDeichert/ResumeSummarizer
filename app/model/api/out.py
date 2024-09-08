@@ -26,5 +26,5 @@ class StandardizeResumeOut(BaseModel):
 
 class SummarizeResumeOut(BaseModel):
     quick_summary: str
-    general_employability: int
+    general_employability_rating: int
     
