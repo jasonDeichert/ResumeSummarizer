@@ -31,4 +31,5 @@ async def standardize_resume(resume_content: list[Text_Section_and_Style], clien
         raise ValueError("No message content returned from OpenAI")
     
     json_content = json.loads(message_content)
-    return json_content
+    standardized_resume = StandardizeResumeOut(**json_content)
+    return standardized_resume

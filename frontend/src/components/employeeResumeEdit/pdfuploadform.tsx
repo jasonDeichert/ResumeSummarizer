@@ -14,9 +14,12 @@ const PdfUploadForm: React.FC<PdfUploadFormProps> = ({setIsResumeFileUploaded, s
         setFile(selectedFile);
     };
 
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setIsLoading(true);
         if (file) {
             const formData = new FormData();
             formData.append("file", file);
@@ -42,6 +45,7 @@ const PdfUploadForm: React.FC<PdfUploadFormProps> = ({setIsResumeFileUploaded, s
         } else {
             console.log("No file selected");
         }
+        setIsLoading(false);
     };
 
     return (
@@ -54,7 +58,7 @@ const PdfUploadForm: React.FC<PdfUploadFormProps> = ({setIsResumeFileUploaded, s
                     type="file"
                     name="resumeFile"
                     id="resumeFile"
-                    accept = "application/pdf"
+                    accept="application/pdf"
                     onChange={handleFileChange}
                     className="border border-gray-300 rounded-md p-2"
                 />
@@ -62,13 +66,18 @@ const PdfUploadForm: React.FC<PdfUploadFormProps> = ({setIsResumeFileUploaded, s
             <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 flex items-center justify-center"
                 >
-                    Upload
+                    {isLoading ? (
+                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                    ) : (
+                        "Upload"
+                    )}
                 </button>
             </div>
         </form>
     );
+    
 };
 
 export default PdfUploadForm;

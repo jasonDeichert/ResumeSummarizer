@@ -3,7 +3,7 @@ import React from 'react';
 import PdfUploadForm from '../components/employeeResumeEdit/pdfUploadForm';
 import ResumeEdit from '../components/employeeResumeEdit/resumeEdit';
 import ResumeSummary from '../components/employeeResumeEdit/resumeSummary';
-import {StandardizeResumeOut, SummarizeResumeOut} from '../types/resume';
+import { StandardizeResumeOut, SummarizeResumeOut } from '../types/resume';
 
 const EmployeeResumeEdit: React.FC = () => {
     const mockResume: StandardizeResumeOut = {
@@ -41,6 +41,8 @@ const EmployeeResumeEdit: React.FC = () => {
 
     const handleSummarize = async () => {
         try {
+            setIsLoading(true); // Set isLoading to true when the API request starts
+
             const response = await fetch("http://localhost:8000/summarizeresume", {
                 method: "POST",
                 headers: {
@@ -48,7 +50,7 @@ const EmployeeResumeEdit: React.FC = () => {
                 },
                 body: JSON.stringify(resume),
             });
-    
+
             if (response.ok) {
                 const data: SummarizeResumeOut = await response.json();
                 console.log("API response:", data);
@@ -59,37 +61,51 @@ const EmployeeResumeEdit: React.FC = () => {
             }
         } catch (error) {
             console.log("API request error:", error);
+        } finally {
+            setIsLoading(false); // Set isLoading to false when the API request is completed
         }
     };
 
     const [isResumeFileUploaded, setIsResumeFileUploaded] = React.useState<boolean>(false);
     const [resume, setResume] = React.useState<StandardizeResumeOut>(mockResume);
     const [resumeSummary, setResumeSummary] = React.useState<SummarizeResumeOut | null>(null);
-    
-    
+
+
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+
+
     return (
         <div>
             <div className="bg-white shadow-md rounded-md p-4 mb-4">
                 <PdfUploadForm setIsResumeFileUploaded={setIsResumeFileUploaded} setResume={setResume} />
             </div>
             {isResumeFileUploaded && (
-                <div className="text-center"> {/* Add this div with text-center class */}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSummarize}>
-                        Summarize Resume
+                <div className="flex justify-center">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                        onClick={handleSummarize}
+                    >
+                        {isLoading ? (
+                            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                        ) : (
+                            "Summarize Resume"
+                        )}
                     </button>
                 </div>
             )}
             {resumeSummary != null && (
-                <div className="bg-white shadow-md rounded-md p-4 mb-4"> {/* Add this div with p-4 and mb-4 classes */}
-                    <ResumeSummary quick_summary={resumeSummary.quick_summary} general_employability={resumeSummary.general_employability} />
+                <div className="bg-white shadow-md rounded-md p-4 mb-4">
+                    <ResumeSummary quick_summary={resumeSummary.quick_summary} general_employability_rating={resumeSummary.general_employability_rating} />
                 </div>
             )}
 
             <div className="bg-white shadow-md rounded-md p-4">
-                <ResumeEdit resume={resume}/>
+                <ResumeEdit resume={resume} />
             </div>
         </div>
     );
+
 };
 
 export default EmployeeResumeEdit;

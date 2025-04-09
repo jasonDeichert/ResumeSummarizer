@@ -1,13 +1,13 @@
 import React from 'react';
 import { SummarizeResumeOut } from '../../types/resume';
 
-const ResumeSummary: React.FC<SummarizeResumeOut> = ({ quick_summary, general_employability }) => {
-    if (general_employability === null) {
+const ResumeSummary: React.FC<SummarizeResumeOut> = ({ quick_summary, general_employability_rating }) => {
+    if (general_employability_rating === null) {
         return <div>{quick_summary}</div>;
     }
-    else if (general_employability > 0 && general_employability <= 10) {
-        const fullStars = Math.floor(general_employability / 2);
-        const halfStar = general_employability % 2 !== 0;
+    else if (general_employability_rating > 0 && general_employability_rating <= 10) {
+        const fullStars = Math.floor(general_employability_rating / 2);
+        const halfStar = general_employability_rating % 2 !== 0;
         const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
         return (
             <div>
@@ -16,7 +16,7 @@ const ResumeSummary: React.FC<SummarizeResumeOut> = ({ quick_summary, general_em
                     {[...Array(fullStars)].map((_, index) => (
                         <span key={`full-${index}`}>&#9733;</span> // Full star
                     ))}
-                    {halfStar && <span key="half">&#9734;</span>} 
+                    {halfStar && <span key="half">&#9734;</span>}
                     {[...Array(emptyStars)].map((_, index) => (
                         <span key={`empty-${index}`}>&#9734;</span> // Empty star
                     ))}
@@ -25,7 +25,7 @@ const ResumeSummary: React.FC<SummarizeResumeOut> = ({ quick_summary, general_em
         );
     }
     else {
-        console.log("Invalid general_employability value:", general_employability);
+        console.log("Invalid general_employability_rating value:", general_employability_rating);
         return null;
     }
 

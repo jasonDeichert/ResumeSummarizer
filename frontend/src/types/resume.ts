@@ -28,5 +28,5 @@ export interface StandardizeResumeOut {
 
 export interface SummarizeResumeOut {
     quick_summary: string | null;
-    general_employability: number | null;
+    general_employability_rating: number | null;
 }

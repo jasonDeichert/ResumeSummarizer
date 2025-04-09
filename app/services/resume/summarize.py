@@ -9,17 +9,16 @@ async def summarize_resume(resume: StandardizeResumeOut, client: Client) -> Summ
     The summary will be used to quickly compare potential candidates and act as a quick introduction for employers doing many interviews.
     You will receive an object with the following schema:
     {describe_class(StandardizeResumeOut)}
-    Your job is to summarize this into a single paragraph that is succinct as possible, containing the most important information.
-    Give an idea of how much school or work experience they have in number of years.
-    Return a JSON object with this schema:
-    {describe_class(SummarizeResumeOut)}
-    The average general employability rating should be 5 (out of 10), which would represent a first year university student that is generally prepared to work a summer job.'''
+    Your job is to summarize this into a single paragraph and accompanying information that is succinct as possible, containing the most important information.
+    Be generous in your interpretation - try to paint the candidate in a good light and highlight their work (and other) projects.
+    Additionally, be generous with their general employability rating. Someone with a few years of experience should have a high rating.
+    '''
     
     user_content: str = f'''Summarize this resume: {resume}.'''
     
-    completion: ChatCompletion = await client.client.chat.completions.create(
-        model="gpt-4o",
-        response_format={"type": "json_object"},
+    completion: ChatCompletion = await client.client.beta.chat.completions.parse(
+        model="gpt-4o-2024-08-06",
+        response_format=SummarizeResumeOut,
         messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": user_content}
@@ -31,4 +30,5 @@ async def summarize_resume(resume: StandardizeResumeOut, client: Client) -> Summ
         raise ValueError("No message content returned from OpenAI")
     
     json_content = json.loads(message_content)
-    return json_content
+    summary = SummarizeResumeOut(**json_content)
+    return summary
